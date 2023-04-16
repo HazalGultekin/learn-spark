@@ -29,10 +29,27 @@ public class MapTrans {
             }
         });
 
-        loadPerson.foreach(new VoidFunction<Person>() {
+        // Foreach ile ekrana yazdırma
+        /*loadPerson.foreach(new VoidFunction<Person>() {
 
             public void call(Person person) throws Exception {
                 System.out.println("Adı : "+ person.getFirst_name()+" Soyadı: "+person.getLast_name());
+            }
+        });
+        */
+
+        JavaRDD<Person> personFromCanada = loadPerson.filter(new Function<Person, Boolean>() {
+            @Override
+            public Boolean call(Person person) throws Exception {
+                return person.getCountry().equals("Canada") && person.getGender().equals("Male");
+            }
+        });
+
+        System.out.println("Person count :" + personFromCanada.count());
+        personFromCanada.foreach(new VoidFunction<Person>() {
+            @Override
+            public void call(Person person) throws Exception {
+                System.out.println(person.getFirst_name()+" "+person.getLast_name()+" "+person.getCountry()+" "+person.getGender());
             }
         });
 
