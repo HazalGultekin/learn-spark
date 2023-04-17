@@ -20,6 +20,14 @@ public class MapTrans {
         System.setProperty("hadoop.home.dir", "C:\\hadoop-common-2.2.0-bin-master");
         JavaSparkContext javaSparkContext=new JavaSparkContext("local","Map Transformation Spark");
 
+        // Distinct Kullanımı
+       /* JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
+        System.out.println(rawdata.count());
+        JavaRDD<String> distData = rawdata.distinct();
+        System.out.println(distData.count());*/
+
+       /* JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
+
        JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
 
         // FlatMap Kullanımı
