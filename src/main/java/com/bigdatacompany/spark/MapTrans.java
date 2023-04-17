@@ -4,6 +4,7 @@ import com.bigdatacompany.spark.model.Person;
 import com.google.common.collect.Iterables;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
+import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.PairFunction;
@@ -14,6 +15,7 @@ import scala.Tuple2;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 
 public class MapTrans {
@@ -21,15 +23,13 @@ public class MapTrans {
         System.setProperty("hadoop.home.dir", "C:\\hadoop-common-2.2.0-bin-master");
         JavaSparkContext javaSparkContext=new JavaSparkContext("local","Map Transformation Spark");
 
+        JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
+
         // Distinct Kullanımı
-       /* JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
+       /*
         System.out.println(rawdata.count());
         JavaRDD<String> distData = rawdata.distinct();
         System.out.println(distData.count());*/
-
-       /* JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
-
-       JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
 
         // FlatMap Kullanımı
         /* JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
@@ -56,8 +56,8 @@ public class MapTrans {
             }
         });
 
-        JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
-        System.out.println(loadPerson.count());
+        /*JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
+        System.out.println(loadPerson.count());*/
 
 
          //pairRDD
