@@ -18,14 +18,16 @@ public class MapTrans {
         JavaSparkContext javaSparkContext=new JavaSparkContext("local","Map Transformation Spark");
 
         JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
+        System.out.println(rawdata.count());
+        JavaRDD<String> distData = rawdata.distinct();
+        System.out.println(distData.count());
 
-
-        JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
+       /* JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
             public Iterator<String> call(String s) throws Exception {
                 return Arrays.asList(s.split(",")).iterator();
             }
         });
-        System.out.println(stringJavaRDD.count());
+        System.out.println(stringJavaRDD.count()); */
 
         /*
         JavaRDD<Person> loadPerson = rawdata.map(new Function<String, Person>() {
