@@ -1,6 +1,7 @@
 package com.bigdatacompany.spark;
 
 import com.bigdatacompany.spark.model.Person;
+import com.google.common.collect.Iterables;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
@@ -45,7 +46,7 @@ public class MapTrans {
             }
         });
 
-        JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
+        /*JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
             @Override
             public Tuple2<String, String> call(Person person) throws Exception {
                 return new Tuple2<String, String>(person.getEmail(), person.getCountry());
@@ -56,6 +57,22 @@ public class MapTrans {
             @Override
             public void call(Tuple2<String, String> data) throws Exception {
                 System.out.println("Key : "+ data._1+" -- Value : "+data._2);
+            }
+        }); */
+
+
+        JavaPairRDD<String, Person> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, Person>() {
+            @Override
+            public Tuple2<String, Person> call(Person person) throws Exception {
+                return new Tuple2<String, Person>(person.getCountry(), person);
+            }
+        });
+
+        JavaPairRDD<String, Iterable<Person>> groupedData = pairRdd.groupByKey();
+        groupedData.foreach(new VoidFunction<Tuple2<String, Iterable<Person>>>() {
+            @Override
+            public void call(Tuple2<String, Iterable<Person>> data) throws Exception {
+                System.out.println("Key : "+data._1+" Count : "+ Iterables.size(data._2));
             }
         });
 
