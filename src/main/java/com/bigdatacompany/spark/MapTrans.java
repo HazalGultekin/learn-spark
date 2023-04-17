@@ -5,8 +5,11 @@ import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 import org.apache.spark.api.java.function.Function;
 import org.apache.spark.api.java.function.VoidFunction;
+import org.apache.spark.api.java.function.FlatMapFunction;
 
 
+import java.util.Arrays;
+import java.util.Iterator;
 
 
 public class MapTrans {
@@ -16,6 +19,15 @@ public class MapTrans {
 
         JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
 
+
+        JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
+            public Iterator<String> call(String s) throws Exception {
+                return Arrays.asList(s.split(",")).iterator();
+            }
+        });
+        System.out.println(stringJavaRDD.count());
+
+        /*
         JavaRDD<Person> loadPerson = rawdata.map(new Function<String, Person>() {
             public Person call(String line) throws Exception{
                 String[] data = line.split(",");
@@ -28,6 +40,7 @@ public class MapTrans {
                 return p;
             }
         });
+        */
 
         // Foreach ile ekrana yazdırma
         /*loadPerson.foreach(new VoidFunction<Person>() {
@@ -38,6 +51,8 @@ public class MapTrans {
         });
         */
 
+        // Filter
+        /*
         JavaRDD<Person> personFromCanada = loadPerson.filter(new Function<Person, Boolean>() {
             @Override
             public Boolean call(Person person) throws Exception {
@@ -51,7 +66,7 @@ public class MapTrans {
             public void call(Person person) throws Exception {
                 System.out.println(person.getFirst_name()+" "+person.getLast_name()+" "+person.getCountry()+" "+person.getGender());
             }
-        });
+        }); */
 
 
 
