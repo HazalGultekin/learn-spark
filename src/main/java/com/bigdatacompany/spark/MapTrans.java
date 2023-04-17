@@ -1,6 +1,7 @@
 package com.bigdatacompany.spark;
 
 import com.bigdatacompany.spark.model.Person;
+import com.google.common.collect.Iterables;
 import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
