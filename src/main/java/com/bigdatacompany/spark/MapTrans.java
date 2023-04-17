@@ -55,15 +55,12 @@ public class MapTrans {
             }
         });
 
-<<<<<<< Updated upstream
         JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
-=======
         System.out.println(loadPerson.count());
 
 
          //pairRDD
         /*JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
->>>>>>> Stashed changes
             @Override
             public Tuple2<String, String> call(Person person) throws Exception {
                 return new Tuple2<String, String>(person.getEmail(), person.getCountry());
@@ -75,9 +72,6 @@ public class MapTrans {
             public void call(Tuple2<String, String> data) throws Exception {
                 System.out.println("Key : "+ data._1+" -- Value : "+data._2);
             }
-<<<<<<< Updated upstream
-        });
-=======
         }); */
 
 
@@ -96,7 +90,6 @@ public class MapTrans {
                 System.out.println("Key : "+data._1+" Count : "+ Iterables.size(data._2));
             }
         }); */
->>>>>>> Stashed changes
 
 
         // Foreach ile ekrana yazdırma
