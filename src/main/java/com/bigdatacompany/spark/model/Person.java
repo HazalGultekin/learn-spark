@@ -46,4 +46,7 @@ public class Person {
     public void setCountry(String country) {
         this.country = country;
     }
+
+    public void setAge(int parseInt) {
+    }
 }

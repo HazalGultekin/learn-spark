@@ -21,6 +21,14 @@ public class MapTrans {
         System.setProperty("hadoop.home.dir", "C:\\hadoop-common-2.2.0-bin-master");
         JavaSparkContext javaSparkContext=new JavaSparkContext("local","Map Transformation Spark");
 
+        // Distinct Kullanımı
+       /* JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
+        System.out.println(rawdata.count());
+        JavaRDD<String> distData = rawdata.distinct();
+        System.out.println(distData.count());*/
+
+       /* JavaRDD<String> stringJavaRDD = rawdata.flatMap(new FlatMapFunction<String, String>() {
+
        JavaRDD<String> rawdata = javaSparkContext.textFile("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
 
         // FlatMap Kullanımı
@@ -42,10 +50,17 @@ public class MapTrans {
                 p.setEmail(data[2]);
                 p.setGender(data[3]);
                 p.setCountry(data[4]);
+                p.setAge(Integer.parseInt(data[5]));
+                System.out.println(p.getFirst_name());
                 return p;
             }
         });
 
+        JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
+        System.out.println(loadPerson.count());
+
+
+         //pairRDD
         /*JavaPairRDD<String, String> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, String>() {
             @Override
             public Tuple2<String, String> call(Person person) throws Exception {
@@ -61,7 +76,8 @@ public class MapTrans {
         }); */
 
 
-        JavaPairRDD<String, Person> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, Person>() {
+        // groupByKey
+       /* JavaPairRDD<String, Person> pairRdd = loadPerson.mapToPair(new PairFunction<Person, String, Person>() {
             @Override
             public Tuple2<String, Person> call(Person person) throws Exception {
                 return new Tuple2<String, Person>(person.getCountry(), person);
@@ -74,7 +90,7 @@ public class MapTrans {
             public void call(Tuple2<String, Iterable<Person>> data) throws Exception {
                 System.out.println("Key : "+data._1+" Count : "+ Iterables.size(data._2));
             }
-        });
+        }); */
 
 
         // Foreach ile ekrana yazdırma
