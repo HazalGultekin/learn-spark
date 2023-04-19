@@ -19,8 +19,13 @@ public class SparkSqlFirst {
         SparkSession sparkSession = SparkSession.builder().master("local").appName("First Exam").getOrCreate();
         Dataset<Row> rawDS = sparkSession.read().option("header",true).schema(schema).csv("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
 
-        Dataset<Row> selDS = rawDS.select("firstName", "email", "country");
-        Dataset<Row> chinaDS = selDS.filter(selDS.col("country").equalTo("China"));
+        Dataset<Row> selDS = rawDS.select("firstName","email","country");
+
+       // Dataset<Row> countryDS = selDS.filter(selDS.col("country").equalTo("France").or(selDS.col("country").equalTo("Brazil")));
+       // Dataset<Row> chinaDS = selDS.filter(selDS.col("country").equalTo("China").and(selDS.col("age").(10).and.(selDS.col("email").contains("google")));
+
+        Dataset<Row> frDS = selDS.filter("country = 'France' or country = 'Brazil' " );
+        frDS.show();
 
     }
 }
