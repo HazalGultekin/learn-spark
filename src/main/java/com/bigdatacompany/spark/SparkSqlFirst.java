@@ -17,10 +17,9 @@ public class SparkSqlFirst {
                 .add("country", DataTypes.StringType);
 
         SparkSession sparkSession = SparkSession.builder().master("local").appName("First Exam").getOrCreate();
-        Dataset<Row> rawDS = sparkSession.read().option("header",true).schema(schema).csv("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\person.csv");
+        Dataset<Row> rawDS = sparkSession.read().schema(schema).option("multiline",true).json("C:\\Users\\HAZAL\\OneDrive\\Masaüstü\\product.json");
+        Dataset<Row> counPriceDS = rawDS.groupBy("country".avg("price"));
 
-        Dataset<Row> selDS = rawDS.select("firstName", "email", "country");
-        Dataset<Row> chinaDS = selDS.filter(selDS.col("country").equalTo("China"));
 
     }
 }
